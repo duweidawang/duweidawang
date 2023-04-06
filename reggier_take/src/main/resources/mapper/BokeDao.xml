@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Dao.BokeDao">
+
+    <insert id="insertimg">
+        insert into boke_url (`userid`,`url`,`urlid`) values (#{id},#{url},#{urlid})
+    </insert>
+    <insert id="insertboke">
+        insert into boke(`userid`,`time`,`content`,`urlid`) values (#{id},#{time},#{content},#{urlid})
+    </insert>
+    <update id="updataheadimg">
+        update cilent set img=#{url} where id=#{id}
+
+    </update>
+    <update id="insertbokecontent">
+        insert into bokecontent(`userid`,`urlid`,`content`,`time`,`userid2`)
+        values (#{selectboke.userid},#{selectboke.urlid},#{selectboke.returncontent},#{selectboke.returntime},#{userid2})
+    </update>
+    <select id="selectmax" resultType="java.lang.Integer">
+        select max(urlid) from boke where userid=#{id};
+    </select>
+    <select id="selectboke" resultType="com.example.Entity.selectboke">
+        select `userid` ,`time`,`content`,`urlid`
+        from boke;
+    </select>
+
+    <select id="selecturl" resultType="java.lang.String">
+        select `url` from boke_url where userid=#{userid} and urlid=#{urlid}
+    </select>
+    <select id="selectheadurl" resultType="com.example.Entity.User">
+        select `img`,`username` from cilent where id=#{id}
+    </select>
+    <select id="selectbokecontent" resultType="com.example.Entity.selectboke">
+        SELECT
+               *
+        FROM bokecontent ur
+                  LEFT JOIN  cilent  rm ON ur.`userid2` = rm.`id`
+
+        WHERE ur.`userid`=#{userid} AND ur.`urlid`=#{urlid}
+
+
+    </select>
+    <select id="selectbokebyid" resultType="com.example.Entity.selectboke">
+        select * from boke where userid=#{id}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Dao.menudao">
+
+
+    <select id="selectPermsByUserId" resultType="java.lang.String">
+        SELECT
+            DISTINCT me.`perm`
+        FROM  cilent ur
+                  LEFT JOIN  role_menu  rm ON ur.`roleid` = rm.`role_id`
+                  LEFT JOIN menu me ON rm.`menu_id`= me.`menu_id`
+
+        WHERE id = #{id}
+
+
+    </select>
+</mapper>

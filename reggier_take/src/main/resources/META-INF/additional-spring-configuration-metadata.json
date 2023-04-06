@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "server.max-http-header-size.tomcat.max-connections",
+      "type": "java.lang.String",
+      "description": "Description for server.max-http-header-size.tomcat.max-connections."
+    },
+    {
+      "name": "redis.port",
+      "type": "java.lang.String",
+      "description": "Description for redis.port."
+    }
+  ] }

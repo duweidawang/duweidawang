@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Dao.ArroundimgDao">
+
+
+    <insert id="insertmes">
+        insert into arround (`mes`) values (#{mes})
+    </insert>
+    <insert id="insertimgurl">
+        insert into arround_url (`img_id`,`url`) values (#{id},#{url})
+
+    </insert>
+
+    <select id="selectimgid" resultType="java.lang.Integer">
+        select max(id) from arround;
+    </select>
+    <select id="selectimg" resultType="com.example.Entity.faceimg">
+        SELECT
+            `mes`,`id`,`url`
+        FROM arround ur
+                 LEFT JOIN  arround_url  rm ON ur.`id` = rm.`img_id`
+    </select>
+    <select id="selectimgbyid" resultType="com.example.Entity.faceimg">
+        SELECT
+            `mes`,`id`,`url`
+        FROM arround ur
+                 LEFT JOIN  arround_url  rm ON ur.`id` = rm.`img_id`
+        WHERE ur.`id`=#{id}
+
+    </select>
+
+
+</mapper>

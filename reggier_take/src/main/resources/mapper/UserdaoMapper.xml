@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Dao.Userdao">
+    <insert id="insertaccount" >
+        insert into cilent (account,password,email) values (#{account},#{password},#{email})
+    </insert>
+    <update id="atention">
+        insert into friend(friend1id,friendid) values (#{userid},#{id})
+    </update>
+    <update id="notattention">
+    delete  from friend  where friend1id=#{userid} and friendid=#{id}
+
+    </update>
+    <update id="updatemessage">
+    update cilent set username=#{username},email=#{email},address=#{address},photonumber=#{photonumber}
+    where id=#{id}
+    </update>
+    <select id="ifattention" resultType="int">
+        select IFNULL(sum(friend1id),0) from friend where friend1id=#{userid} and friendid=#{id}
+    </select>
+
+    <select id="checkemail" resultType="int">
+        select count(email) from cilent where email=#{email}
+    </select>
+    <select id="checkaccount" resultType="integer">
+        select count(account) from cilent where account=#{account}
+    </select>
+
+
+    <select id="selectaccount" resultType="com.example.Entity.User">
+        select * from cilent where account=#{account} and password=#{password}
+    </select>
+    <select id="selectbyaccount" resultType="com.example.Entity.User">
+        select * from cilent where account=#{account}
+    </select>
+    <select id="gethead" resultType="java.lang.String">
+        select img from cilent where id=#{id}
+    </select>
+    <select id="selectuser" resultType="com.example.Entity.User">
+        select * from cilent where id=#{id}
+    </select>
+
+</mapper>
