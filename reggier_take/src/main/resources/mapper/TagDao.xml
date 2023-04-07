@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dao.TagDao">
+    <update id="updateById">
+        update tag
+        <set>
+            <if test="tag.name != null">
+                name = #{tag.name}
+            </if>
+            <if test="tag.remark != null">
+                remark = #{tag.remark}
+            </if>
+        </set>
+        where id = #{tag.id}
+    </update>
+
+    <select id="listByIds" resultType="com.example.entity.Tag">
+        select * from tag
+        <where>
+            <foreach item="item" index="index" collection="list"
+                     open="id in (" separator="," close=")" nullable="true">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+</mapper>
