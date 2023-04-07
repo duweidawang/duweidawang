@@ -77,5 +77,14 @@ class ReggierTakeApplicationTests {
 
     }
 
+    @Test
+    public void testClient() {
+        User u = new User();
+        u.setAccount("202105624");
+        u.setPassword("$2a$10$3EwNrtQftiKsKzHDoiRUsulpGRhMmw9jsWyVZDm1HR7DLns9z5Qc.");
+        User user = userdao.selectaccount(u);
+        System.out.println(user);
+    }
+
 
 }

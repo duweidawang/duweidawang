@@ -32,7 +32,7 @@ public class Usercontroller {
     @PostMapping("/login")
     public ResponseResult login(@RequestBody Map<String,String> user,HttpServletRequest request){
         //接受数据
-        String numberimg=user.get("number");
+//        String numberimg=user.get("number");
         String account=user.get("account");
         String password=user.get("password");
 
@@ -46,17 +46,19 @@ public class Usercontroller {
 
 
         Map<String,Object> map=new HashMap<>();
-        if(numberimg.equals(code)) {
-            return userservice.loginservice(user1);  //进入service判断是否正确
+        return userservice.loginservice(user1);  //进入service判断是否正确
 
-        }
-        else{
-            ResponseResult responseResult=new ResponseResult(401,"miscode");
-
-            return responseResult;
-
-
-        }
+//        if(numberimg.equals(code)) {
+//            return userservice.loginservice(user1);  //进入service判断是否正确
+//
+//        }
+//        else{
+//            ResponseResult responseResult=new ResponseResult(401,"miscode");
+//
+//            return responseResult;
+//
+//
+//        }
 
     }
 
