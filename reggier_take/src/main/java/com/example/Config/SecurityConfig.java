@@ -41,6 +41,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 对于登录接口 允许匿名访问
                 .antMatchers("/user/login","/user/getImage","/user/register","user/upload","user/demo1").anonymous() //表示匿名可访问
+                .antMatchers(
+                        "/favicon.ico",
+                        "/webjars/**",
+                        "/img.icons/**",
+                        "/swagger-resources/**",
+                        "/v2/api-docs/**",
+                        "/swagger-ui/**",
+                        "/doc.html"
+                        ).anonymous()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);  //将接受token的过滤器放在username password过滤器的前面
@@ -65,9 +74,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-
-
 
 
 
