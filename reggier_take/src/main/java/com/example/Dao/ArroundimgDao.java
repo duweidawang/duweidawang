@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Mapper
 public interface ArroundimgDao {
-    boolean insertmes(String mes);
+    int insertmes(faceimg faceimg);
     int selectimgid();
     boolean insertimgurl(String url,int id);
     List<faceimg> selectimg();

@@ -6,7 +6,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/vue1-0
+    url: jdbc:mysql://47.109.86.195/vue1-0
     username: root
     password: 123456
   mvc:

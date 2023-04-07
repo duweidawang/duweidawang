@@ -9,12 +9,14 @@ import com.example.Entity.User;
 import com.example.Entity.faceimg;
 import com.example.Service.Arroundimgservice;
 import com.example.Service.Bokeservice;
+import com.example.Service.impl.ArroundimgserviceImpl;
 import com.example.Utils.jwtutils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +33,8 @@ class ReggierTakeApplicationTests {
     BokeDao bokeDao;
     @Autowired
     Bokeservice bokeservice;
+    @Autowired
+    Arroundimgservice arroundimgservice;
 
     @Test
     void contextLoads() {
@@ -75,6 +79,15 @@ class ReggierTakeApplicationTests {
         int ifattention = userdao.ifattention(1, 38);
         System.out.println(ifattention);
 
+    }
+    @Test
+    void insertimgurl(){
+  String text="sssssssss";
+  String time="1111111";
+  List list =new ArrayList();
+  list.add("kehsi");
+  list.add("kehsi");
+  bokeservice.insertboke(text,time,list);
     }
 
 

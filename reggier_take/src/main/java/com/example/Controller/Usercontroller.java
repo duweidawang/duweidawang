@@ -60,7 +60,6 @@ public class Usercontroller {
 
     }
 
-
     /**
      * 验证码模块
      * @description 生成验证码图片
@@ -92,7 +91,6 @@ public class Usercontroller {
         return "data:image/png;base64," + Base64Utils.encodeToString(byteArrayOutputStream.toByteArray());
 
     }
-
     /**
      * 注册功能，返回信息
      * @param
@@ -143,28 +141,24 @@ public class Usercontroller {
 
         return map1;
     }
-
-
-
-
-
-    @PreAuthorize("hasAuthority('sys_delete')")
-    @GetMapping(value = "/log")
-    public String log(){
-        return "hello";
-    }
+    /**
+     * 退出登录
+     * @return
+     */
     @GetMapping(value = "/loginout")
     public ResponseResult logout(){
         return userservice.logout();
     }
+
+    /**
+     * 查询头像与id
+     * @return
+     */
     @GetMapping(value = "/getimg")
     public ResponseResult getimg(){
         return userservice.getimg();
     }
-    @GetMapping(value = "/demo1")
-    public String demo(){
-        return "keyil";
-    }
+
 
 
 
