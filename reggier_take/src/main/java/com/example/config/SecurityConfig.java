@@ -50,7 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/favicon.ico"
                         ).anonymous()
                 // 除上面外的所有请求全部需要鉴权认证
-                .anyRequest().authenticated();
+//                .anyRequest().authenticated();
+                .anyRequest().permitAll();
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);  //将接受token的过滤器放在username password过滤器的前面
 
         http.exceptionHandling()

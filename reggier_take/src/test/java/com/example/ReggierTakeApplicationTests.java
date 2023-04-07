@@ -4,7 +4,9 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.config.SecurityConfig;
 import com.example.dao.ArroundimgDao;
 import com.example.dao.BokeDao;
+import com.example.dao.StoreDao;
 import com.example.dao.Userdao;
+import com.example.entity.Store;
 import com.example.entity.User;
 import com.example.service.Bokeservice;
 import com.example.utils.jwtutils;
@@ -13,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
@@ -28,6 +32,8 @@ class ReggierTakeApplicationTests {
     BokeDao bokeDao;
     @Autowired
     Bokeservice bokeservice;
+    @Autowired
+    StoreDao storeDao;
 
     @Test
     void contextLoads() {
@@ -76,11 +82,10 @@ class ReggierTakeApplicationTests {
 
     @Test
     public void testClient() {
-        User u = new User();
-        u.setAccount("202105624");
-        u.setPassword("$2a$10$3EwNrtQftiKsKzHDoiRUsulpGRhMmw9jsWyVZDm1HR7DLns9z5Qc.");
-        User user = userdao.selectaccount(u);
-        System.out.println(user);
+        List<Store> storeList = storeDao.list();
+        for (Store store : storeList) {
+            System.out.println(store);
+        }
     }
 
 

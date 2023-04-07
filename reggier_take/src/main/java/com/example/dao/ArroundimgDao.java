@@ -13,7 +13,4 @@ public interface ArroundimgDao {
     List<faceimg> selectimg();
     List<faceimg> selectimgbyid(int id);
 
-
-
-
 }

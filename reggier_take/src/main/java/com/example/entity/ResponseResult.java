@@ -1,6 +1,7 @@
 package com.example.entity;
 
 
+import com.example.common.ResultCodeEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -17,6 +18,29 @@ public class ResponseResult <T> {
     public ResponseResult(Integer code, T data) {
         this.code = code;
         this.data = data;
+    }
+
+    public ResponseResult(ResultCodeEnum resultCodeEnum, T data) {
+        this.code = resultCodeEnum.getCode();
+        this.data = data;
+        this.msg = resultCodeEnum.getMessage();
+    }
+
+    public ResponseResult(ResultCodeEnum resultCodeEnum) {
+        this.code = resultCodeEnum.getCode();
+        this.msg = resultCodeEnum.getMessage();
+    }
+
+    public static<T> ResponseResult<T> success(T data) {
+        return new ResponseResult<T>(ResultCodeEnum.SUCCESS, data);
+    }
+    public static<T> ResponseResult<T> success() {
+        return new ResponseResult<T>(ResultCodeEnum.SUCCESS);
+    }
+
+
+    public static<T> ResponseResult<T> error(Integer code, String msg) {
+        return new ResponseResult<T>(code, msg);
     }
 
     public Integer getCode() {
