@@ -39,5 +39,9 @@
     <select id="selectuser" resultType="com.example.Entity.User">
         select * from cilent where id=#{id}
     </select>
+    <select id="gethead1" resultType="java.util.Map">
+        select id id, img img ,username username from cilent where  id =#{id}
+    </select>
+
 
 </mapper>

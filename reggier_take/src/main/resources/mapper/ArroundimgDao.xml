@@ -11,6 +11,12 @@
     <insert id="insertmes" useGeneratedKeys="true"  keyProperty="id">
         insert into arround (mes) values (#{mes})
     </insert>
+    <delete id="deletearround">
+        delete  from  arround where  id=#{id}
+    </delete>
+    <delete id="deletearrround1">
+        delete  from arround_url where  img_id =#{id}
+    </delete>
 
     <select id="selectimgid" resultType="java.lang.Integer">
         select max(id) from arround;

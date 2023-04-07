@@ -14,6 +14,9 @@ public interface ArroundimgDao {
     List<faceimg> selectimg();
     List<faceimg> selectimgbyid(int id);
 
+    boolean deletearround(int id);
+    boolean deletearrround1(int id);
+
 
 
 

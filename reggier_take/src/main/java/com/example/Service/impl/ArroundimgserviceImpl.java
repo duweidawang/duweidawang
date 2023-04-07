@@ -82,4 +82,11 @@ public class ArroundimgserviceImpl implements Arroundimgservice {
 
         return new ResponseResult(201,"ok",map);
     }
+
+    @Override
+    public ResponseResult deletearround(int id) {
+        arroundimgDao.deletearround(id);
+        arroundimgDao.deletearrround1(id);
+        return new ResponseResult(201,"删除成功");
+    }
 }

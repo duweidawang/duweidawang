@@ -5,12 +5,15 @@ import com.example.Config.SecurityConfig;
 import com.example.Dao.ArroundimgDao;
 import com.example.Dao.BokeDao;
 import com.example.Dao.Userdao;
+import com.example.Entity.ResponseResult;
 import com.example.Entity.User;
 import com.example.Entity.faceimg;
 import com.example.Service.Arroundimgservice;
 import com.example.Service.Bokeservice;
+import com.example.Service.Userservice;
 import com.example.Service.impl.ArroundimgserviceImpl;
 import com.example.Utils.jwtutils;
+import com.sun.javafx.collections.ListListenerHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,6 +38,8 @@ class ReggierTakeApplicationTests {
     Bokeservice bokeservice;
     @Autowired
     Arroundimgservice arroundimgservice;
+    @Autowired
+    Userservice userservice;
 
     @Test
     void contextLoads() {
@@ -76,18 +81,9 @@ class ReggierTakeApplicationTests {
 //        System.out.println(userdao.selectbyaccount("202105624"));
 //        bokeDao.insertimg("ddd",1);
 //        Map map =new HashMap();
-        int ifattention = userdao.ifattention(1, 38);
-        System.out.println(ifattention);
+   arroundimgservice.deletearround(35);
 
-    }
-    @Test
-    void insertimgurl(){
-  String text="sssssssss";
-  String time="1111111";
-  List list =new ArrayList();
-  list.add("kehsi");
-  list.add("kehsi");
-  bokeservice.insertboke(text,time,list);
+
     }
 
 

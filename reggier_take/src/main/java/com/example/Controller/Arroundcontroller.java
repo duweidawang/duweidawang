@@ -55,6 +55,14 @@ public class Arroundcontroller {
        return arroundimgservice.insertimgmes(text,qinimgurl);
 
     }
+    /**
+     *
+     */
+    @GetMapping(value="deletearround")
+    public ResponseResult deletearround(@PathVariable("id") int id){
+        return arroundimgservice.deletearround(id);
+
+    }
 
 
     /**

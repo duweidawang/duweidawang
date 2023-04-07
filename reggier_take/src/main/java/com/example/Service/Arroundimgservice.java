@@ -9,4 +9,5 @@ public interface Arroundimgservice {
 
     ResponseResult selectimg();
     ResponseResult selectimdbyid(int id);
+    ResponseResult deletearround(int id);
 }
