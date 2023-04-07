@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.Dao.Userdao">
+<mapper namespace="com.example.dao.Userdao">
     <insert id="insertaccount" >
         insert into cilent (account,password,email) values (#{account},#{password},#{email})
     </insert>
@@ -27,16 +27,16 @@
     </select>
 
 
-    <select id="selectaccount" resultType="com.example.Entity.User">
+    <select id="selectaccount" resultType="com.example.entity.User">
         select * from cilent where account=#{account} and password=#{password}
     </select>
-    <select id="selectbyaccount" resultType="com.example.Entity.User">
+    <select id="selectbyaccount" resultType="com.example.entity.User">
         select * from cilent where account=#{account}
     </select>
     <select id="gethead" resultType="java.lang.String">
         select img from cilent where id=#{id}
     </select>
-    <select id="selectuser" resultType="com.example.Entity.User">
+    <select id="selectuser" resultType="com.example.entity.User">
         select * from cilent where id=#{id}
     </select>
 

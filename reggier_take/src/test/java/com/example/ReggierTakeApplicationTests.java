@@ -1,22 +1,19 @@
 package com.example;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.Config.SecurityConfig;
-import com.example.Dao.ArroundimgDao;
-import com.example.Dao.BokeDao;
-import com.example.Dao.Userdao;
-import com.example.Entity.User;
-import com.example.Entity.faceimg;
-import com.example.Service.Arroundimgservice;
-import com.example.Service.Bokeservice;
-import com.example.Utils.jwtutils;
+import com.example.config.SecurityConfig;
+import com.example.dao.ArroundimgDao;
+import com.example.dao.BokeDao;
+import com.example.dao.Userdao;
+import com.example.entity.User;
+import com.example.service.Bokeservice;
+import com.example.utils.jwtutils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
