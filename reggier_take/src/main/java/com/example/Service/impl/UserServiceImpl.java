@@ -112,8 +112,8 @@ public class UserServiceImpl implements Userservice {
     public ResponseResult getimg() {
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long userId  = loginUser.getUser().getId();
-        Map map = userdao.gethead1(userId);
-        return new ResponseResult(200,"成功",map);
+       Map map= userdao.gethead1(userId);
+       return new ResponseResult(200,"成功",map);
 
 
     }

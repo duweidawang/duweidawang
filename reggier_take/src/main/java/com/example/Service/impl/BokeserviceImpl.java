@@ -30,9 +30,8 @@ public class BokeserviceImpl implements Bokeservice{
      */
     @Override
     public ResponseResult insertboke(String text,String time,List list) {
-//        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        long userId  = loginUser.getUser().getId();
-        long userId=1;
+      LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long userId  = loginUser.getUser().getId();
         Integer selectmax = bokeDao.selectmax((int) userId);
         if(selectmax==null){
             bokeDao.insertboke((int)userId,time,text,1);

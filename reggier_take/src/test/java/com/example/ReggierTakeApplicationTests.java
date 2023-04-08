@@ -81,7 +81,7 @@ class ReggierTakeApplicationTests {
 //        System.out.println(userdao.selectbyaccount("202105624"));
 //        bokeDao.insertimg("ddd",1);
 //        Map map =new HashMap();
-   arroundimgservice.deletearround(35);
+        System.out.println(userservice.getimg().getData());
 
 
     }

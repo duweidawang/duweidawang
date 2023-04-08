@@ -33,38 +33,40 @@ public class Arroundcontroller {
     @Autowired
     QiniuUtils qiniuUtils;
     int o = 0;
-
-
     /**
      * 周边的上传接口
-     * @param text
-     * @param files
+     * @param
+     * @param
      * @return
      */
     @PreAuthorize("hasAuthority('sys_uploadarround')")
     @PostMapping(value = "/upload")
-    public ResponseResult uploadarround(@RequestParam("text") String text,@RequestParam("files") MultipartFile[] files){
-        List<String> qinimgurl =new ArrayList<>();
-        for (MultipartFile file:files) {
-            String originlFilename = file.getOriginalFilename();
-            String originalFilename = file.getOriginalFilename();
-            String fileName = UUID.randomUUID().toString() + "." + StringUtils.substringAfterLast(originalFilename, ".");
-            boolean upload = qiniuUtils.upload(file, fileName);
-            qinimgurl.add(QiniuUtils.url+fileName);
-        }
-       return arroundimgservice.insertimgmes(text,qinimgurl);
+    public ResponseResult uploadarround(@RequestBody Map map){
 
+        return arroundimgservice.insertimgmes((String) map.get("text"),(List) map.get("imgurl"));
     }
+    //周边图片上传接口
+    @PreAuthorize("hasAuthority('sys_uploadarround')")
+    @PostMapping(value = "/uploadimg")
+    public ResponseResult uploadimg(@RequestParam("file") MultipartFile file){
+        String originlFilename = file.getOriginalFilename();
+        String originalFilename = file.getOriginalFilename();
+        String fileName = UUID.randomUUID().toString() + "." + StringUtils.substringAfterLast(originalFilename, ".");
+        boolean upload = qiniuUtils.upload(file, fileName);
+        return new ResponseResult(200,"成功",QiniuUtils.url+fileName);
+    }
+
+
+
+
     /**
-     *
+     *删除arroind根据id
      */
     @GetMapping(value="deletearround")
     public ResponseResult deletearround(@PathVariable("id") int id){
         return arroundimgservice.deletearround(id);
 
     }
-
-
     /**
      * 周边内容回显
      * @return

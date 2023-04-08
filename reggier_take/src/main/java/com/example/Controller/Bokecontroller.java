@@ -34,18 +34,29 @@ public class Bokecontroller {
      */
     @PreAuthorize("hasAuthority('sys_cilent')")
     @PostMapping(value = "/uploaded")
-    public ResponseResult uploadtext(@RequestParam("text") String text,@RequestParam("time") String time,@RequestParam("file") MultipartFile[] files) {
-        List<String> qinimgurl =new ArrayList<>();
-        for (MultipartFile file:files) {
+    public ResponseResult uploadtext(@RequestBody Map map) {
+        return bokeservice.insertboke((String)map.get("text"),(String)map.get("time"),(List) map.get("imgurl"));
+
+    }
+
+    /**
+     * 上传时返回图片回显
+     * @param file
+     * @return
+     */
+    @PreAuthorize("hasAuthority('sys_cilent')")
+    @PostMapping(value = "/uploadimg")
+    public ResponseResult uploadtext(@RequestParam("file") MultipartFile file) {
             String originlFilename = file.getOriginalFilename();
             String originalFilename = file.getOriginalFilename();
             String fileName = UUID.randomUUID().toString() + "." + StringUtils.substringAfterLast(originalFilename, ".");
             boolean upload = qiniuUtils.upload(file, fileName);
-            qinimgurl.add(QiniuUtils.url+fileName);
+            return new ResponseResult(200,"成功",QiniuUtils.url+fileName);
         }
-        return bokeservice.insertboke(text,time,qinimgurl);
 
-    }
+
+
+
 
     /**
      * 获取boke信息
@@ -67,7 +78,6 @@ public class Bokecontroller {
     @PreAuthorize("hasAuthority('sys_cilent')")
     @PostMapping(value = "/updatahead")
     public ResponseResult updatahead(@RequestBody MultipartFile file) {
-
         String originalFilename = file.getOriginalFilename();
         String fileName = UUID.randomUUID().toString() + "." + StringUtils.substringAfterLast(originalFilename, ".");
         boolean upload = qiniuUtils.upload(file, fileName);
