@@ -18,34 +18,25 @@ public class ArroundimgserviceImpl implements Arroundimgservice {
     @Autowired
     ArroundimgDao arroundimgDao;
 
-
+    /**
+     * 实现周边的上传功能
+     * 返回成功信息
+     * @param text
+     * @param list
+     * @return
+     */
     @Override
-    public ResponseResult insertimgmes(String mes, String[] url) {
+    public ResponseResult insertimgmes(String text, List list) {
+        faceimg mes = new faceimg();
+        mes.setMes(text);
         arroundimgDao.insertmes(mes);
-        int id = arroundimgDao.selectimgid();
-        for (int i = 0; i < url.length; i++) {
-            arroundimgDao.insertimgurl(url[i], id);
-
+        int id = mes.getId();
+        for (Object url: list
+             ) {
+            arroundimgDao.insertimgurl((String) url,id);
         }
+        return new ResponseResult(201,"上传成功","");
 
-        return new ResponseResult(201, "添加成功", 0);
-
-    }
-
-    @Override
-    public void insertimgurl(String imgurl) {
-        int id = arroundimgDao.selectimgid()+1;
-        System.out.println(id);
-
-          arroundimgDao.insertimgurl(imgurl,id);
-
-
-
-    }
-
-    @Override
-    public void insertmes(String mes) {
-        arroundimgDao.insertmes(mes);
 
     }
 
@@ -90,5 +81,12 @@ public class ArroundimgserviceImpl implements Arroundimgservice {
         map.put("url",img);
 
         return new ResponseResult(201,"ok",map);
+    }
+
+    @Override
+    public ResponseResult deletearround(int id) {
+        arroundimgDao.deletearround(id);
+        arroundimgDao.deletearrround1(id);
+        return new ResponseResult(201,"删除成功");
     }
 }

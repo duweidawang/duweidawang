@@ -21,38 +21,25 @@ public class BokeController {
     @Autowired
     QiniuUtils qiniuUtils;
 
+
     /**
-     * 发表动态的图片上传接口
+     * 动态发表 文本上传接口
      *
      * @param
      * @return
      */
     @PreAuthorize("hasAuthority('sys_cilent')")
-    @PostMapping(value = "/upload")
-    public ResponseResult uploadimg(@RequestParam MultipartFile file) {
-        System.out.println(file);
-
-
-        String originalFilename = file.getOriginalFilename();
-        String fileName = UUID.randomUUID().toString() + "." + StringUtils.substringAfterLast(originalFilename, ".");
-        boolean upload = qiniuUtils.upload(file, fileName);
-        System.out.println(QiniuUtils.url + fileName);
-        return bokeservice.insertimg(QiniuUtils.url + fileName);
-
-    }
-
-
-    /**
-     * 动态发表 文本上传接口
-     *
-     * @param map
-     * @return
-     */
-    @PreAuthorize("hasAuthority('sys_cilent')")
     @PostMapping(value = "/uploaded")
-    public ResponseResult uploadtext(@RequestBody Map<String, String> map) {
-
-        return bokeservice.insertboke(map);
+    public ResponseResult uploadtext(@RequestParam("text") String text,@RequestParam("time") String time,@RequestParam("file") MultipartFile[] files) {
+        List<String> qinimgurl =new ArrayList<>();
+        for (MultipartFile file:files) {
+            String originlFilename = file.getOriginalFilename();
+            String originalFilename = file.getOriginalFilename();
+            String fileName = UUID.randomUUID().toString() + "." + StringUtils.substringAfterLast(originalFilename, ".");
+            boolean upload = qiniuUtils.upload(file, fileName);
+            qinimgurl.add(QiniuUtils.url+fileName);
+        }
+        return bokeservice.insertboke(text,time,qinimgurl);
 
     }
 

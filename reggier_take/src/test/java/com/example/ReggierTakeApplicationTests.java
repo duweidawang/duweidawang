@@ -1,21 +1,25 @@
 package com.example;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.config.SecurityConfig;
-import com.example.dao.ArroundimgDao;
-import com.example.dao.BokeDao;
-import com.example.dao.StoreDao;
-import com.example.dao.Userdao;
-import com.example.entity.Store;
-import com.example.entity.User;
-import com.example.service.Bokeservice;
-import com.example.utils.jwtutils;
+import com.example.Config.SecurityConfig;
+import com.example.Dao.ArroundimgDao;
+import com.example.Dao.BokeDao;
+import com.example.Dao.Userdao;
+import com.example.Entity.ResponseResult;
+import com.example.Entity.User;
+import com.example.Entity.faceimg;
+import com.example.Service.Arroundimgservice;
+import com.example.Service.Bokeservice;
+import com.example.Service.Userservice;
+import com.example.Service.impl.ArroundimgserviceImpl;
+import com.example.Utils.jwtutils;
+import com.sun.javafx.collections.ListListenerHelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +37,9 @@ class ReggierTakeApplicationTests {
     @Autowired
     Bokeservice bokeservice;
     @Autowired
-    StoreDao storeDao;
+    Arroundimgservice arroundimgservice;
+    @Autowired
+    Userservice userservice;
 
     @Test
     void contextLoads() {
@@ -75,17 +81,9 @@ class ReggierTakeApplicationTests {
 //        System.out.println(userdao.selectbyaccount("202105624"));
 //        bokeDao.insertimg("ddd",1);
 //        Map map =new HashMap();
-        int ifattention = userdao.ifattention(1, 38);
-        System.out.println(ifattention);
+   arroundimgservice.deletearround(35);
 
-    }
 
-    @Test
-    public void testClient() {
-        List<Store> storeList = storeDao.list();
-        for (Store store : storeList) {
-            System.out.println(store);
-        }
     }
 
 
