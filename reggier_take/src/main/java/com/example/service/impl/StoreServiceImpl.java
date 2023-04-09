@@ -1,8 +1,10 @@
 package com.example.service.impl;
 
 import com.example.dao.StoreDao;
+import com.example.dao.StoreImgDao;
 import com.example.dao.StoreTagDao;
 import com.example.entity.Store;
+import com.example.entity.StoreImg;
 import com.example.entity.StoreTag;
 import com.example.entity.vo.PageVO;
 import com.example.entity.vo.StoreVO;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author zn
@@ -32,10 +35,12 @@ public class StoreServiceImpl implements StoreService {
     private TagService tagService;
     @Autowired
     private StoreTagDao storeTagDao;
+    @Autowired
+    private StoreImgDao storeImgDao;
 
 
     @Override
-    public PageVO<StoreVO> searchStore(int pageNum, int pageSize) {
+    public PageVO<StoreVO> searchStoreByPage(int pageNum, int pageSize) {
         //开启分页
         PageHelper.startPage(pageNum, pageSize);
         //分页查询店铺
@@ -43,18 +48,26 @@ public class StoreServiceImpl implements StoreService {
         PageVO<StoreVO> page = new PageVO<>();
         page.setTotal(storePageInfo.getTotal());
         page.setRecords(BeanCopyUtils.copyBeanList(storePageInfo.getList(), StoreVO.class));
-        //查询店铺对应标签
         page.getRecords().stream().forEach(store -> {
+            //查询店铺对应标签
             List<TagVO> tagVOList = tagService.searchTagByStoreId(store.getId());
             store.setTagList(tagVOList);
+            //查询店铺对应图片
+            List<StoreImg> storeImgList = storeImgDao.getByStoreId(store.getId());
+            List<String> imgUrlList = storeImgList.stream().map(StoreImg::getImgUrl).collect(Collectors.toList());
+            store.setImgUrlList(imgUrlList);
         });
+
         return page;
     }
 
     @Override
     public StoreVO searchStoreById(long id) {
         Store store = storeDao.getById(id);
+        List<StoreImg> storeImgList = storeImgDao.getByStoreId(id);
         StoreVO storeVO = BeanCopyUtils.copyBean(store, StoreVO.class);
+        List<String> imgUrlList = storeImgList.stream().map(storeImg -> storeImg.getImgUrl()).collect(Collectors.toList());
+        storeVO.setImgUrlList(imgUrlList);
         List<TagVO> tagVOS = tagService.searchTagByStoreId(storeVO.getId());
         storeVO.setTagList(tagVOS);
         return storeVO;
@@ -67,11 +80,14 @@ public class StoreServiceImpl implements StoreService {
         storeDao.delete(id);
         //删除商铺标签
         storeTagDao.delete(id);
+        //删除店铺图片标签
+        storeImgDao.deleteByStoreId(id);
     }
 
     @Override
     @Transactional
     public void saveStore(StoreVO storeVO) {
+        //添加图片
         Store store = BeanCopyUtils.copyBean(storeVO, Store.class);
         storeDao.insert(store);
         if (!ObjectUtils.isEmpty(storeVO.getTagList())) {
@@ -82,6 +98,11 @@ public class StoreServiceImpl implements StoreService {
                         }
                     });
         }
+        //添加店铺图片
+        List<String> imgUrlList = storeVO.getImgUrlList();
+        for (String imgUrl : imgUrlList) {
+            storeImgDao.insert(store.getId(), imgUrl);
+        }
     }
 
     @Override
@@ -90,6 +111,7 @@ public class StoreServiceImpl implements StoreService {
         Store store = BeanCopyUtils.copyBean(storeVO, Store.class);
         storeDao.updateById(store);
         List<TagVO> tagList = storeVO.getTagList();
+        //修改标签
         if (!ObjectUtils.isEmpty(tagList)) {
             storeTagDao.delete(storeVO.getId());
             tagList.stream()
@@ -98,6 +120,14 @@ public class StoreServiceImpl implements StoreService {
                             storeTagDao.insert(new StoreTag(tagVO.getId(), storeVO.getId()));
                         }
                     });
+        }
+        //修改店铺图片
+        List<String> imgUrlList = storeVO.getImgUrlList();
+        if (!imgUrlList.isEmpty()) {
+            storeImgDao.deleteByStoreId(storeVO.getId());
+            for (String imgUrl : imgUrlList) {
+                storeImgDao.insert(storeVO.getId(), imgUrl);
+            }
         }
     }
 }

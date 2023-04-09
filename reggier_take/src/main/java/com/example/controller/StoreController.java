@@ -24,12 +24,12 @@ public class StoreController {
 
     @GetMapping("/page")
     public ResponseResult<PageVO<StoreVO>> searchStoresByPage(int pageNum, int pageSize) {
-        return ResponseResult.success(storeService.searchStore(pageNum, pageSize));
+        return ResponseResult.success(storeService.searchStoreByPage(pageNum, pageSize));
     }
 
     @GetMapping("/{id}")
-    public ResponseResult<StoreVO> searchStore(@PathVariable("id") Long id) {
-        if (id == null) {
+    public ResponseResult<StoreVO> searchStore(@PathVariable("id") long id) {
+        if (id <= 0) {
             throw new SystemException(ResultCodeEnum.SYSTEM_ERROR);
         }
         return ResponseResult.success(storeService.searchStoreById(id));
@@ -37,13 +37,19 @@ public class StoreController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseResult removeStore(@PathVariable("id") Long id) {
+    public ResponseResult removeStore(@PathVariable("id") long id) {
+        if (id <= 0) {
+            throw new SystemException(ResultCodeEnum.SYSTEM_ERROR);
+        }
         storeService.deleteStore(id);
         return ResponseResult.success();
     }
 
     @PutMapping
     public ResponseResult updateStore(@RequestBody StoreVO storeVO) {
+        if (storeVO.getId() == null || storeVO.getId() <= 0) {
+            throw new SystemException(ResultCodeEnum.SYSTEM_ERROR);
+        }
         storeService.updateStore(storeVO);
         return ResponseResult.success();
     }

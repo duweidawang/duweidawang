@@ -42,4 +42,6 @@ public class StoreVO {
     private Integer status;
 
     private List<TagVO> tagList;
+
+    private List<String> imgUrlList;
 }

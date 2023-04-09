@@ -6,7 +6,7 @@ import com.example.entity.vo.StoreVO;
 
 public interface StoreService {
 
-    PageVO<StoreVO> searchStore(int pageNum, int pageSize);
+    PageVO<StoreVO> searchStoreByPage(int pageNum, int pageSize);
 
     StoreVO searchStoreById(long id);
 
