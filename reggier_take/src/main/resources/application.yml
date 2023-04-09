@@ -6,12 +6,20 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.109.86.195/vue1-0
+    url: jdbc:mysql://47.109.86.195:3306/vue1-0
     username: root
     password: 123456
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  redis:
+    host: 47.108.239.188
+    port: 6379
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
 
 
 
@@ -20,4 +28,5 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mapper/*.xml
