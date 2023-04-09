@@ -1,10 +1,7 @@
 package com.example.dao;
 
 import com.example.entity.Store;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -19,7 +16,7 @@ public interface StoreDao {
     @Select("select * from store where id = #{id}")
     Store getById(long id);
 
-    @Delete("delete from store where id = #{id}}")
+    @Delete("delete from store where id = #{id}")
     int delete(long id);
 
     int updateById(Store store);

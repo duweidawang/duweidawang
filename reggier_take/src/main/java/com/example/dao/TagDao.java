@@ -15,7 +15,7 @@ public interface TagDao {
     @Delete("delete from tag where id = #{id}")
     int deleteById(long id);
 
-    @Insert("insert into tag values(null, #{tag.id}, #{tag.name}, #{tag.remark}, #{tag.createTime}, #{tag.updateTime} )")
+    @Insert("insert into tag values(null , #{name}, #{remark})")
     int insert(Tag tag);
 
     int updateById(Tag tag);

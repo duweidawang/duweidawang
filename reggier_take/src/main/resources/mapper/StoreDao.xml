@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.dao.StoreDao">
-    <insert id="insert">
+    <insert id="insert" useGeneratedKeys = "true" keyProperty = "id">
         insert into store
-        values (null, #{store.name}, #{store.address}, #{store.thumbnail}, #{store.avatar_url},
-                #{store.summary}, #{store.description}, #{store.star}, #{store.status});
+        values(null, #{name}, #{address}, #{thumbnail}, #{avatarUrl},
+                #{summary}, #{description}, #{star}, 0);
     </insert>
     <update id="updateById">
         update store
         <set>
-            <if test="store.name != null">
-                name = #{store.name}
+            <if test="name != null and name != ''">
+                name = #{name}
             </if>
-            <if test="store.address != null">
-                address = #{store.address}
+            <if test="address != null and address != ''">
+                address = #{address}
             </if>
-            <if test="store.thumbnail">
-                thumbnail = #{store.thumbnail}
+            <if test="thumbnail != null and thumbnail !=''">
+                thumbnail = #{thumbnail}
             </if>
-            <if test="store.avatar_url != null">
-                avatar_url = #{store.avatarUrl}
+            <if test="avatarUrl != null and avatarUrl != ''">
+                avatar_url = #{avatarUrl}
             </if>
-            <if test="store.summary">
-                summary = #{store.summary}
+            <if test="summary != null and summary != ''">
+                summary = #{summary}
             </if>
-            <if test="store.description != null">
-                description = #{store.description}
+            <if test="description != null and description != ''">
+                description = #{description}
             </if>
-            <if test="store.star != null">
-                star = #{store.star}
+            <if test="star != null and star != ''">
+                star = #{star}
             </if>
-            <if test="store.status != null">
-                status = #{store.status}
+            <if test="status != null">
+                status = #{status}
             </if>
         </set>
+        where id = #{id}
     </update>
 
     <select id="page" resultType="com.example.entity.Store">

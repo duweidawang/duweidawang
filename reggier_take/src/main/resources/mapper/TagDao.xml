@@ -5,13 +5,13 @@
         update tag
         <set>
             <if test="tag.name != null">
-                name = #{tag.name}
+                name = #{name}
             </if>
             <if test="tag.remark != null">
-                remark = #{tag.remark}
+                remark = #{remark}
             </if>
         </set>
-        where id = #{tag.id}
+        where id = #{id}
     </update>
 
     <select id="listByIds" resultType="com.example.entity.Tag">

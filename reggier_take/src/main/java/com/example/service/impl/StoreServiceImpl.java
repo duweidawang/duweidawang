@@ -12,6 +12,7 @@ import com.example.service.TagService;
 import com.example.utils.BeanCopyUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,22 +74,30 @@ public class StoreServiceImpl implements StoreService {
     public void saveStore(StoreVO storeVO) {
         Store store = BeanCopyUtils.copyBean(storeVO, Store.class);
         storeDao.insert(store);
-        storeVO.getTagList().stream()
-                .forEach(tagVO -> {
-                    storeTagDao.insert(new StoreTag(tagVO.getId(), storeVO.getId()));
-                });
+        if (!ObjectUtils.isEmpty(storeVO.getTagList())) {
+            storeVO.getTagList().stream()
+                    .forEach(tagVO -> {
+                        if (tagVO.getId() != null) {
+                            storeTagDao.insert(new StoreTag(tagVO.getId(), store.getId()));
+                        }
+                    });
+        }
     }
 
     @Override
     @Transactional
     public void updateStore(StoreVO storeVO) {
         Store store = BeanCopyUtils.copyBean(storeVO, Store.class);
-        storeDao.insert(store);
+        storeDao.updateById(store);
         List<TagVO> tagList = storeVO.getTagList();
-        storeTagDao.delete(storeVO.getId());
-        tagList.stream()
-                .forEach(tagVO -> {
-                    storeTagDao.insert(new StoreTag(tagVO.getId(), storeVO.getId()));
-                });
+        if (!ObjectUtils.isEmpty(tagList)) {
+            storeTagDao.delete(storeVO.getId());
+            tagList.stream()
+                    .forEach(tagVO -> {
+                        if (tagVO.getId() != null) {
+                            storeTagDao.insert(new StoreTag(tagVO.getId(), storeVO.getId()));
+                        }
+                    });
+        }
     }
 }

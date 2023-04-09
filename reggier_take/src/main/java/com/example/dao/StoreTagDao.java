@@ -10,7 +10,7 @@ public interface StoreTagDao {
     @Select("select  * from store_tag where store_id = #{storeId}")
     List<StoreTag> listByTagId(@Param("storeId") long storeId);
 
-    @Insert("insert into store_tag values(null, #{storeTag.tagId}, #{storeTag.storeId})")
+    @Insert("insert into store_tag values(#{tagId}, #{storeId})")
     int insert(StoreTag storeTag);
 
     @Delete("delete from store_tag where store_id = #{storeId}")
